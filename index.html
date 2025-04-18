@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h2>CollegePro</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#students"><i class="fas fa-user-graduate"></i> Students</a></li>
+                    <li><a href="#faculty"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                    <li><a href="#courses"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="#attendance"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+                    <li><a href="#reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation Bar -->
+            <header class="top-nav">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-profile">
+                    <img src="images/admin-avatar.jpg" alt="Admin">
+                    <span>Admin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section id="dashboard" class="content-section active">
+                <h2>Dashboard Overview</h2>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Total Students</h3>
+                        <p id="total-students">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h3>Total Faculty</h3>
+                        <p id="total-faculty">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-book"></i>
+                        <h3>Total Courses</h3>
+                        <p id="total-courses">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-day"></i>
+                        <h3>Today's Classes</h3>
+                        <p id="todays-classes">0</p>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Student Enrollment</h3>
+                        <canvas id="enrollment-chart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Attendance Rate</h3>
+                        <canvas id="attendance-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <ul id="activity-list">
+                        <!-- Activities will be added dynamically -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Students Management Section -->
+            <section id="students" class="content-section">
+                <div class="section-header">
+                    <h2>Student Management</h2>
+                    <button class="btn add-btn" id="add-student-btn"><i class="fas fa-plus"></i> Add Student</button>
+                </div>
+                
+                <div class="filters">
+                    <select id="student-department-filter">
+                        <option value="">All Departments</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Business Administration">Business Administration</option>
+                    </select>
+                    <select id="student-year-filter">
+                        <option value="">All Years</option>
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+                    <button class="btn filter-btn" id="student-filter-btn">Filter</button>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Year</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <!-- Students data will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Faculty Management Section -->
+            <section id="faculty" class="content-section">
+                <div class="section-header">
+                    <h2>Faculty Management</h2>
+                    <button class="btn add-btn" id="add-faculty-btn"><i class="fas fa-plus"></i> Add Faculty</button>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Position</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faculty-table-body">
+                        <!-- Faculty data will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Courses Management Section -->
+            <section id="courses" class="content-section">
+                <div class="section-header">
+                    <h2>Course Management</h2>
+                    <button class="btn add-btn" id="add-course-btn"><i class="fas fa-plus"></i> Add Course</button>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Credits</th>
+                            <th>Instructor</th>
+                            <th>Schedule</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courses-table-body">
+                        <!-- Courses data will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Attendance Management Section -->
+            <section id="attendance" class="content-section">
+                <h2>Attendance Management</h2>
+                <div class="attendance-controls">
+                    <div class="control-group">
+                        <label for="attendance-course">Select Course:</label>
+                        <select id="attendance-course">
+                            <option value="">-- Select Course --</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="attendance-date">Date:</label>
+                        <input type="date" id="attendance-date">
+                    </div>
+                    <button class="btn" id="load-attendance-btn">Load Students</button>
+                </div>
+                
+                <div class="attendance-table-container">
+                    <table class="data-table" id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-table-body">
+                            <!-- Attendance data will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="attendance-actions">
+                    <button class="btn save-btn" id="save-attendance-btn">Save Attendance</button>
+                    <button class="btn report-btn" id="attendance-report-btn">Generate Report</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for adding/editing students -->
+    <div class="modal" id="student-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="student-modal-title">Add New Student</h3>
+            <form id="student-form">
+                <input type="hidden" id="student-id">
+                <div class="form-group">
+                    <label for="student-name">Full Name:</label>
+                    <input type="text" id="student-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-email">Email:</label>
+                    <input type="email" id="student-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-phone">Phone:</label>
+                    <input type="tel" id="student-phone">
+                </div>
+                <div class="form-group">
+                    <label for="student-department">Department:</label>
+                    <select id="student-department" required>
+                        <option value="">-- Select Department --</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Business Administration">Business Administration</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="student-year">Year:</label>
+                    <select id="student-year" required>
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="student-address">Address:</label>
+                    <textarea id="student-address"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn cancel-btn">Cancel</button>
+                    <button type="submit" class="btn submit-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+    <script src="students.js"></script>
+    <script src="faculty.js"></script>
+    <script src="courses.js"></script>
+    <script src="attendance.js"></script>
+</body>
+</html>
